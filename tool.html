@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Unobstructed</title>
+    </head>
+    <body>
+        <style>
+            body,html {width:100%;height:100%;margin:0; color: white; font-family: monospace; line-height: 1.5em}
+            html {background:url(https://upload.wikimedia.org/wikipedia/commons/5/51/1_Milford_Sound.jpg) center;background-size: cover;}
+            body {backdrop-filter: blur(8px);}
+            body {display: flex;align-items:center;justify-content: center;}
+            #container {width: 75%;}
+            #container div {
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+            }
+            textarea {width: 90%; background-color: rgba(10,10,10,0.5); color: white;outline: none;border-radius: 10px; padding: 10px;}
+            textarea::placeholder {color: lightgray;}
+            .glass {
+                margin: 10px;
+                padding: 10px;
+                background: rgba(10, 10, 10, 0.6);
+                backdrop-filter: blur(100px) saturate(180%);
+                border: 1px solid rgba(255, 255, 255, 0.3);
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.75), inset 5px 5px 5px rgba(100,100,100,0.2), inset -5px -5px 5px rgba(0,0,0,0.2);
+                padding: 5px;
+            }
+            .glass::before {
+                content: '';
+                position: absolute;
+                backdrop-filter: blur(20px);
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                border-radius: 12px;
+                z-index: -1;
+            }
+            button {
+                width: 90%;
+                color: rgba(250,250,250,1);
+                font-family: monospace;
+                background: rgba(0,0,0,0.5);
+                border-radius: 15px;
+                border: 1px solid dimgray;
+                margin-top: 10px;
+            }
+        </style>
+
+
+
+
+        <div id="container">
+                        <div class="glass">
+            <p>Input</p>
+            <textarea id="deInput" placeholder="Your encoded URL goes here."></textarea>
+            </div>
+            <div class="glass">
+            <p>Output</p>
+            <textarea id="deOutput" placeholder="Your decoded URL will output here." readonly></textarea>
+            <button onclick="navigator.clipboard.writeText(decoded);">Copy to clipboard</button>
+            </div>
+            <p id="copyNotifier"></p>
+            <p class="glass" style="padding: 30px;">
+                This tool allows you to obtain high quality images from restricted sites for people on enterprise or school adminstered chromebooks.
+                <br><br>Steps:<br>
+                1. Search for your image in <b>Google Images</b> (it MUST be from Google Images)<br>
+                2. Right click the image FROM THE GRID VIEW (Do not pull it up in the image preview pane)<br>
+                3. Select "Copy <b>Link</b> Address"<br>
+                4. Paste the address into the input area below<br>
+                5. Copy your output URL<br>
+                6. In a Google Document (or slideshow) insert an image BY URL. Use your output URL<br><br>
+
+                Now you have it in a Google Document which is fine if you want it there, but if you'd like to have it as a file, you can right click the Google Document image and save it to keep. From keep, you can right click and save the image as a file<br>
+                <span style="color:dimgray">Method found by Maximus Fayte Miller 2<br>Website by BoxelLogica</span></p>
+
+        </div>
+
+
+
+
+
+
+        <script>
+            var encoded;
+            var decoded;
+
+            document.getElementById("deInput").addEventListener('input', function() {
+                decoded = decodeURIComponent(this.value.match(/(?<=imgurl=)[^]+(?=&imgrefurl)/g)[0]);
+                document.getElementById("deOutput").innerHTML = decoded;
+                // navigator.clipboard.writeText(decoded);
+                // document.getElementById("copyNotifier").innerHTML = "Copied to Clipboard!";
+
+            });
+        </script>
+    <body>
+</html>
